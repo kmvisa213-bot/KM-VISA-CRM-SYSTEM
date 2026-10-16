@@ -39,7 +39,7 @@
       <input type="tel" id="phoneNumber">
 
       <!-- VISA FIELDS -->
-      <div id="visaFields" class="hidden">
+      <div id="visaFields" style="display:none;">
         <label for="visaCountry">دولة الفيزا</label>
         <select id="visaCountry">
           <option value="">اختر الدولة</option>
@@ -54,7 +54,7 @@
           <option value="Other">أخرى</option>
         </select>
 
-        <div id="visaCountryOtherWrap" class="hidden">
+        <div id="visaCountryOtherWrap" style="display:none;">
           <label for="visaCountryOther">اكتب اسم الدولة</label>
           <input type="text" id="visaCountryOther" placeholder="مثال: إسبانيا">
         </div>
@@ -87,7 +87,7 @@
       </div>
 
       <!-- FLIGHT FIELDS -->
-      <div id="flightFields" class="hidden">
+      <div id="flightFields" style="display:none;">
         <label for="flightDepartureCity">مدينة / مطار المغادرة</label>
         <input type="text" id="flightDepartureCity">
 
@@ -112,7 +112,7 @@
       </div>
 
       <!-- HOTEL FIELDS -->
-      <div id="hotelFields" class="hidden">
+      <div id="hotelFields" style="display:none;">
         <label for="hotelCity">المدينة</label>
         <input type="text" id="hotelCity">
 
@@ -130,7 +130,7 @@
       </div>
 
       <!-- OTHER FIELDS -->
-      <div id="otherFields" class="hidden">
+      <div id="otherFields" style="display:none;">
         <label for="otherDescription">وصف الخدمة</label>
         <textarea id="otherDescription"></textarea>
       </div>
@@ -143,46 +143,47 @@
   </div>
 
   <script>
-    const serviceType = document.getElementById("serviceType");
+    document.addEventListener("DOMContentLoaded", function () {
 
-    const visaFields = document.getElementById("visaFields");
-    const flightFields = document.getElementById("flightFields");
-    const hotelFields = document.getElementById("hotelFields");
-    const otherFields = document.getElementById("otherFields");
+      const serviceType = document.getElementById("serviceType");
+      const visaFields = document.getElementById("visaFields");
+      const flightFields = document.getElementById("flightFields");
+      const hotelFields = document.getElementById("hotelFields");
+      const otherFields = document.getElementById("otherFields");
+      const visaCountry = document.getElementById("visaCountry");
+      const visaCountryOtherWrap = document.getElementById("visaCountryOtherWrap");
 
-    const visaCountry = document.getElementById("visaCountry");
-    const visaCountryOtherWrap = document.getElementById("visaCountryOtherWrap");
-
-    function hideAllServiceFields() {
-      visaFields.classList.add("hidden");
-      flightFields.classList.add("hidden");
-      hotelFields.classList.add("hidden");
-      otherFields.classList.add("hidden");
-      visaCountryOtherWrap.classList.add("hidden");
-    }
-
-    hideAllServiceFields();
-
-    serviceType.addEventListener("change", function () {
-      hideAllServiceFields();
-
-      if (this.value === "Visa") {
-        visaFields.classList.remove("hidden");
-      } else if (this.value === "Flight") {
-        flightFields.classList.remove("hidden");
-      } else if (this.value === "Hotel") {
-        hotelFields.classList.remove("hidden");
-      } else if (this.value === "Other") {
-        otherFields.classList.remove("hidden");
+      function hideAll() {
+        visaFields.style.display = "none";
+        flightFields.style.display = "none";
+        hotelFields.style.display = "none";
+        otherFields.style.display = "none";
+        visaCountryOtherWrap.style.display = "none";
       }
-    });
 
-    visaCountry.addEventListener("change", function () {
-      if (this.value === "Other") {
-        visaCountryOtherWrap.classList.remove("hidden");
-      } else {
-        visaCountryOtherWrap.classList.add("hidden");
-      }
+      hideAll();
+
+      serviceType.addEventListener("change", function () {
+        hideAll();
+        if (this.value === "Visa") {
+          visaFields.style.display = "block";
+        } else if (this.value === "Flight") {
+          flightFields.style.display = "block";
+        } else if (this.value === "Hotel") {
+          hotelFields.style.display = "block";
+        } else if (this.value === "Other") {
+          otherFields.style.display = "block";
+        }
+      });
+
+      visaCountry.addEventListener("change", function () {
+        if (this.value === "Other") {
+          visaCountryOtherWrap.style.display = "block";
+        } else {
+          visaCountryOtherWrap.style.display = "none";
+        }
+      });
+
     });
   </script>
 
