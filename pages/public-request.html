@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>طلب خدمة - KM VISA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <div class="header">
+    <h1>KM VISA</h1>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2>عذراً لعدم الرد على اتصالكم</h2>
+      <p>يسعدنا خدمتكم. يرجى تعبئة البيانات التالية وسنتواصل معكم في أقرب وقت ممكن.</p>
+    </div>
+
+    <div class="card">
+      <label for="serviceType">نوع الخدمة المطلوبة</label>
+      <select id="serviceType">
+        <option value="">اختر نوع الخدمة</option>
+        <option value="Visa">فيزا</option>
+        <option value="Flight">تذكرة طيران</option>
+        <option value="Hotel">حجز فندق</option>
+        <option value="Other">خدمة أخرى</option>
+      </select>
+
+      <label for="firstName">الاسم الأول</label>
+      <input type="text" id="firstName">
+
+      <label for="lastName">اسم العائلة</label>
+      <input type="text" id="lastName">
+
+      <label for="phoneNumber">رقم الهاتف</label>
+      <input type="tel" id="phoneNumber">
+
+      <div id="visaFields" class="hidden">
+        <label for="visaCountry">دولة الفيزا</label>
+        <input type="text" id="visaCountry">
+
+        <label for="visaFirstOrRenewal">أول طلب أم تجديد؟</label>
+        <select id="visaFirstOrRenewal">
+          <option value="">اختر</option>
+          <option value="First Application">أول طلب</option>
+          <option value="Renewal">تجديد</option>
+        </select>
+
+        <label for="visaPreviousRefusal">هل سبق رفض فيزا؟</label>
+        <select id="visaPreviousRefusal">
+          <option value="">اختر</option>
+          <option value="false">لا</option>
+          <option value="true">نعم</option>
+        </select>
+
+        <label for="visaWorkType">نوع العمل</label>
+        <select id="visaWorkType">
+          <option value="">اختر</option>
+          <option value="Trader">تاجر</option>
+          <option value="Employee">موظف</option>
+          <option value="Farmer">فلاح</option>
+          <option value="Other">أخرى</option>
+        </select>
+
+        <label for="visaExpectedTravelDate">تاريخ السفر المتوقع</label>
+        <input type="date" id="visaExpectedTravelDate">
+      </div>
+
+      <div id="flightFields" class="hidden">
+        <label for="flightDepartureCity">مدينة / مطار المغادرة</label>
+        <input type="text" id="flightDepartureCity">
+
+        <label for="flightArrivalCity">مدينة / مطار الوصول</label>
+        <input type="text" id="flightArrivalCity">
+
+        <label for="flightTripType">نوع الرحلة</label>
+        <select id="flightTripType">
+          <option value="">اختر</option>
+          <option value="One-way">ذهاب فقط</option>
+          <option value="Round-trip">ذهاب وإياب</option>
+        </select>
+
+        <label for="flightDepartureDate">تاريخ الذهاب</label>
+        <input type="date" id="flightDepartureDate">
+
+        <label for="flightReturnDate">تاريخ العودة</label>
+        <input type="date" id="flightReturnDate">
+
+        <label for="flightPassengerCount">عدد المسافرين</label>
+        <input type="number" id="flightPassengerCount" min="1">
+      </div>
+
+      <div id="hotelFields" class="hidden">
+        <label for="hotelCity">المدينة</label>
+        <input type="text" id="hotelCity">
+
+        <label for="hotelCheckinDate">تاريخ الدخول</label>
+        <input type="date" id="hotelCheckinDate">
+
+        <label for="hotelCheckoutDate">تاريخ الخروج</label>
+        <input type="date" id="hotelCheckoutDate">
+
+        <label for="hotelAdultsCount">عدد البالغين</label>
+        <input type="number" id="hotelAdultsCount" min="1">
+
+        <label for="hotelChildrenCount">عدد الأطفال (حتى 12 سنة)</label>
+        <input type="number" id="hotelChildrenCount" min="0">
+      </div>
+
+      <div id="otherFields" class="hidden">
+        <label for="otherDescription">وصف الخدمة</label>
+        <textarea id="otherDescription"></textarea>
+      </div>
+
+      <button type="button" class="btn btn-primary">إرسال الطلب</button>
+    </div>
+  </div>
+
+  <script>
+    const serviceType = document.getElementById("serviceType");
+    const visaFields = document.getElementById("visaFields");
+    const flightFields = document.getElementById("flightFields");
+    const hotelFields = document.getElementById("hotelFields");
+    const otherFields = document.getElementById("otherFields");
+
+    serviceType.addEventListener("change", function () {
+      visaFields.classList.add("hidden");
+      flightFields.classList.add("hidden");
+      hotelFields.classList.add("hidden");
+      otherFields.classList.add("hidden");
+
+      if (serviceType.value === "Visa") {
+        visaFields.classList.remove("hidden");
+      } else if (serviceType.value === "Flight") {
+        flightFields.classList.remove("hidden");
+      } else if (serviceType.value === "Hotel") {
+        hotelFields.classList.remove("hidden");
+      } else if (serviceType.value === "Other") {
+        otherFields.classList.remove("hidden");
+      }
+    });
+  </script>
+
+</body>
+</html>
