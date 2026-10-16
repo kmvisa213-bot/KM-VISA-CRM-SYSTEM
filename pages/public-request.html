@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>طلب خدمة - KM VISA</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
-
 <body>
 
   <div class="header">
@@ -15,14 +13,12 @@
   </div>
 
   <div class="container">
-
     <div class="card">
       <h2>عذراً لعدم الرد على اتصالكم</h2>
       <p>يسعدنا خدمتكم. يرجى تعبئة البيانات التالية وسنتواصل معكم في أقرب وقت ممكن.</p>
     </div>
 
     <div class="card">
-
       <label for="serviceType">نوع الخدمة المطلوبة</label>
       <select id="serviceType">
         <option value="">اختر نوع الخدمة</option>
@@ -41,8 +37,7 @@
       <label for="phoneNumber">رقم الهاتف</label>
       <input type="tel" id="phoneNumber">
 
-      <!-- VISA FIELDS -->
-      <div id="visaFields" style="display:none;">
+      <div id="visaFields" class="hidden">
         <label for="visaCountry">دولة الفيزا</label>
         <select id="visaCountry">
           <option value="">اختر الدولة</option>
@@ -50,17 +45,11 @@
           <option value="Belgium">بلجيكا</option>
           <option value="Germany">ألمانيا</option>
           <option value="Italy">إيطاليا</option>
-          <option value="USA">الولايات المتحدة الأمريكية</option>
+          <option value="USA">أمريكا</option>
           <option value="China">الصين</option>
           <option value="Qatar">قطر</option>
           <option value="Turkey">تركيا</option>
-          <option value="Other">أخرى</option>
         </select>
-
-        <div id="visaCountryOtherWrap" style="display:none;">
-          <label for="visaCountryOther">اكتب اسم الدولة</label>
-          <input type="text" id="visaCountryOther" placeholder="مثال: إسبانيا">
-        </div>
 
         <label for="visaFirstOrRenewal">أول طلب أم تجديد؟</label>
         <select id="visaFirstOrRenewal">
@@ -89,8 +78,7 @@
         <input type="date" id="visaExpectedTravelDate">
       </div>
 
-      <!-- FLIGHT FIELDS -->
-      <div id="flightFields" style="display:none;">
+      <div id="flightFields" class="hidden">
         <label for="flightDepartureCity">مدينة / مطار المغادرة</label>
         <input type="text" id="flightDepartureCity">
 
@@ -107,15 +95,14 @@
         <label for="flightDepartureDate">تاريخ الذهاب</label>
         <input type="date" id="flightDepartureDate">
 
-        <label for="flightReturnDate">تاريخ العودة (في حال الذهاب والإياب)</label>
+        <label for="flightReturnDate">تاريخ العودة</label>
         <input type="date" id="flightReturnDate">
 
         <label for="flightPassengerCount">عدد المسافرين</label>
-        <input type="number" id="flightPassengerCount" min="1" value="1">
+        <input type="number" id="flightPassengerCount" min="1">
       </div>
 
-      <!-- HOTEL FIELDS -->
-      <div id="hotelFields" style="display:none;">
+      <div id="hotelFields" class="hidden">
         <label for="hotelCity">المدينة</label>
         <input type="text" id="hotelCity">
 
@@ -126,68 +113,45 @@
         <input type="date" id="hotelCheckoutDate">
 
         <label for="hotelAdultsCount">عدد البالغين</label>
-        <input type="number" id="hotelAdultsCount" min="1" value="1">
+        <input type="number" id="hotelAdultsCount" min="1">
 
         <label for="hotelChildrenCount">عدد الأطفال (حتى 12 سنة)</label>
-        <input type="number" id="hotelChildrenCount" min="0" value="0">
+        <input type="number" id="hotelChildrenCount" min="0">
       </div>
 
-      <!-- OTHER FIELDS -->
-      <div id="otherFields" style="display:none;">
-        <label for="otherDescription">وصف الخدمة المطلوبة</label>
-        <textarea id="otherDescription" placeholder="اكتب شرحاً مختصراً عن الخدمة التي تريدها"></textarea>
+      <div id="otherFields" class="hidden">
+        <label for="otherDescription">وصف الخدمة</label>
+        <textarea id="otherDescription"></textarea>
       </div>
 
       <button type="button" class="btn btn-primary">إرسال الطلب</button>
-
     </div>
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    const serviceType = document.getElementById("serviceType");
+    const visaFields = document.getElementById("visaFields");
+    const flightFields = document.getElementById("flightFields");
+    const hotelFields = document.getElementById("hotelFields");
+    const otherFields = document.getElementById("otherFields");
 
-      const serviceType = document.getElementById("serviceType");
-      const visaFields = document.getElementById("visaFields");
-      const flightFields = document.getElementById("flightFields");
-      const hotelFields = document.getElementById("hotelFields");
-      const otherFields = document.getElementById("otherFields");
-      const visaCountry = document.getElementById("visaCountry");
-      const visaCountryOtherWrap = document.getElementById("visaCountryOtherWrap");
+    serviceType.addEventListener("change", function () {
+      visaFields.classList.add("hidden");
+      flightFields.classList.add("hidden");
+      hotelFields.classList.add("hidden");
+      otherFields.classList.add("hidden");
 
-      function hideAll() {
-        visaFields.style.display = "none";
-        flightFields.style.display = "none";
-        hotelFields.style.display = "none";
-        otherFields.style.display = "none";
-        visaCountryOtherWrap.style.display = "none";
+      if (serviceType.value === "Visa") {
+        visaFields.classList.remove("hidden");
+      } else if (serviceType.value === "Flight") {
+        flightFields.classList.remove("hidden");
+      } else if (serviceType.value === "Hotel") {
+        hotelFields.classList.remove("hidden");
+      } else if (serviceType.value === "Other") {
+        otherFields.classList.remove("hidden");
       }
-
-      hideAll();
-
-      serviceType.addEventListener("change", function () {
-        hideAll();
-        if (this.value === "Visa") {
-          visaFields.style.display = "block";
-        } else if (this.value === "Flight") {
-          flightFields.style.display = "block";
-        } else if (this.value === "Hotel") {
-          hotelFields.style.display = "block";
-        } else if (this.value === "Other") {
-          otherFields.style.display = "block";
-        }
-      });
-
-      visaCountry.addEventListener("change", function () {
-        if (this.value === "Other") {
-          visaCountryOtherWrap.style.display = "block";
-        } else {
-          visaCountryOtherWrap.style.display = "none";
-        }
-      });
-
     });
   </script>
 
 </body>
-
 </html>
